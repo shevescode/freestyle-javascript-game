@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Javascript Game</title>
+    <title>Dummy Snek</title>
     <meta charset="UTF-8">
     <!-- http://proger.i-forge.net/The_smallest_transparent_pixel/ -->
     <link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">
-    <script src="game.js"></script>
     <link rel="stylesheet" href="style.css">
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
@@ -16,14 +15,22 @@
         <div class="header">
             <h1>DUMMY SNEK</h1>
         </div>
+
+        <div id="start">
+            <a href="#" onclick="startGame()">Start Game</a>
+        </div>
+
         <div class="game_board">
             <img src="images/snek.png">
             <div class="score_board">
                 <p>Time:</p>
                 <p>Score:</p>
             </div>
+            <button onclick="play();">PLAY POŁYK SOUND</button>
         </div>
 
     </div>
+
+    <script src="game.js"></script>
 </body>
 </html>
