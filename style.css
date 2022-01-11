@@ -1,0 +1,31 @@
+*{
+    margin: 0;
+    padding: 0
+}
+
+body {
+    background-color: rgb(214, 229, 227);
+}
+
+.header {
+    background-color: rgb(80, 124, 121);
+    width: auto;
+    height: 100px;
+}
+
+.game_board {
+    background-color: rgb(255, 255, 255);
+    width: 680px;
+    height: 680px;
+    margin: 40px auto auto;
+    box-shadow: #777777 5px 5px 10px 10px;
+}
+
+h1 {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 60px;
+    text-align: center;
+    width: auto;
+    height: 100px;
+}
+
