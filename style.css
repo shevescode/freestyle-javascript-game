@@ -1,6 +1,9 @@
 *{
     margin: 0;
-    padding: 0
+    padding: 0;
+    grid-column-start: 1;
+    /* grid-row-start: 15; */
+    /* padding-left: 20px; */
 }
 
 body {
@@ -13,10 +16,13 @@ body {
     height: 100px;
 }
 
-.game_board {
+#game_board {
     background-color: rgb(255, 255, 255);
-    width: 680px;
-    height: 680px;
+    width: 800px;
+    height: 800px;
+    display: grid;
+    grid-template-columns: repeat(21, 1fr);
+    grid-template-rows: repeat(21, 1fr);
     margin: 40px auto auto;
     box-shadow: #777777 5px 5px 10px 10px;
 }
@@ -27,6 +33,11 @@ h1 {
     text-align: center;
     width: auto;
     height: 100px;
+}
+
+#sneak {
+    grid-column-start: 10;
+    grid-row-start: 10;
 }
 
 /*#start {*/
