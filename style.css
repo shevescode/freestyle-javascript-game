@@ -21,8 +21,8 @@ body {
     width: 800px;
     height: 800px;
     display: grid;
-    grid-template-columns: repeat(21, 1fr);
-    grid-template-rows: repeat(21, 1fr);
+    grid-template-columns: repeat(20, 1fr);
+    grid-template-rows: repeat(20, 1fr);
     margin: 40px auto auto;
     box-shadow: #777777 5px 5px 10px 10px;
 }
