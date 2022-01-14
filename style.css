@@ -40,6 +40,17 @@ h1 {
     grid-row-start: 10;
 }
 
+#apple{
+    grid-column-start: 15;
+    grid-row-start: 15;
+}
+
+.sneak_body {
+    background-color: rgb(57 177 75);
+    border: 1px solid black;
+}
+
+
 /*#start {*/
 /*    text-align: center;*/
 /*    text-decoration: none;*/
