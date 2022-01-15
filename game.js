@@ -1,14 +1,15 @@
 const polykSound = new Audio("polykSound.mp3");
 let direction = "d";
 var intervalId;
-var sneakLength = 0
+var snakeLength = 2
 var gameBoard = document.getElementById('game_board');
+var snakeElements = [{x: 9, y: 10}]
 
 initGame();
 
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
-    intervalId = setInterval(moveSneak, 200);
+    intervalId = setInterval(moveSnake, 1000);
     window.addEventListener('keydown', (edge)=>{
         if (edge.key === "d") {
             direction = "d"
@@ -34,32 +35,32 @@ function play(){
 //     startDiv.style.display = "none";
 // }
 
-function moveSneak() {
-    let sneak = document.getElementById('sneak');
-    let sneakY = getComputedStyle(sneak).getPropertyValue('grid-column-start');
-    let sneakX = getComputedStyle(sneak).getPropertyValue('grid-row-start');
+function moveSnake() {
+    let snake = document.getElementById('snake');
+    let snakeY = getComputedStyle(snake).getPropertyValue('grid-column-start');
+    let snakeX = getComputedStyle(snake).getPropertyValue('grid-row-start');
     
-    appleOnBoard(sneakY, sneakX);
-    changeSnakeDirection(sneakX, sneakY);
+    appleOnBoard(snakeY, snakeX);
+    changeSnakeDirection(snakeX, snakeY);
 
 }
 
-function appleOnBoard(sneakY, sneakX) {
+function appleOnBoard(snakeY, snakeX) {
     let apple = document.getElementById('apple');
     let appleY = getComputedStyle(apple).getPropertyValue('grid-column-start');
     let appleX = getComputedStyle(apple).getPropertyValue('grid-row-start');
     
-    if ((sneakY == appleY) && (sneakX == appleX)) {
+    if ((snakeY == appleY) && (snakeX == appleX)) {
         play();
-        sneakLength += 1;
-        console.log(sneakLength)
+        snakeLength += 1;
+        console.log(snakeLength)
         apple.style.gridColumnStart = (getRandomInt(1, 20));
         apple.style.gridRowStart = (getRandomInt(1, 20));
 
         var newElement = document.createElement('div');
-        newElement.style.gridRowStart = sneak.style.gridRowStart
-        newElement.style.gridColumnStart = sneak.style.gridColumnStart
-        newElement.classList.add('sneak_body')
+        newElement.style.gridRowStart = snake.style.gridRowStart
+        newElement.style.gridColumnStart = snake.style.gridColumnStart
+        newElement.classList.add('snake_body')
         gameBoard.appendChild(newElement)
         
     }
@@ -68,22 +69,23 @@ function appleOnBoard(sneakY, sneakX) {
 function changeSnakeDirection(x, y){
 
     if (direction === "d" && parseInt(y) != 20) { 
-        sneak.style.gridColumnStart = (parseInt(y) + 1);
-
-        document.querySelector("#sneak").style.transform = "rotate(0deg)";
+        snake.style.gridColumnStart = (parseInt(y) + 1);
+        document.querySelector("#snake").style.transform = "rotate(0deg)";
     }
     else if (direction === "a" && parseInt(y) != 1)  {
-        sneak.style.gridColumnStart = (parseInt(y) - 1);
-        document.querySelector("#sneak").style.transform = "rotate(180deg)";
+        snake.style.gridColumnStart = (parseInt(y) - 1);
+        document.querySelector("#snake").style.transform = "rotate(180deg)";
     }
     else if (direction === "w" && parseInt(x) != 1)  {
-        sneak.style.gridRowStart = (parseInt(x) - 1);
-        document.querySelector("#sneak").style.transform = "rotate(270deg)";
+        snake.style.gridRowStart = (parseInt(x) - 1);
+        document.querySelector("#snake").style.transform = "rotate(270deg)";
     }
     else if (direction === "s" && parseInt(x) != 20) {
-        sneak.style.gridRowStart = (parseInt(x) + 1);
-        document.querySelector("#sneak").style.transform = "rotate(90deg)";
+        snake.style.gridRowStart = (parseInt(x) + 1);
+        document.querySelector("#snake").style.transform = "rotate(90deg)";
     } 
+
+
     else {
         clearInterval(intervalId);
     }  

@@ -35,7 +35,7 @@ h1 {
     height: 100px;
 }
 
-#sneak {
+#snake {
     grid-column-start: 10;
     grid-row-start: 10;
 }
@@ -45,11 +45,15 @@ h1 {
     grid-row-start: 15;
 }
 
-.sneak_body {
+.snake_body {
     background-color: rgb(57 177 75);
     border: 1px solid black;
 }
 
+.snakeElements {
+    background-color: rgb(57 177 75);
+    border: 1px solid black;
+}
 
 /*#start {*/
 /*    text-align: center;*/
