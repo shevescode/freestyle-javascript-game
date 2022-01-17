@@ -9,6 +9,7 @@
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
     </style>
+    <script type="module" src="game.js"></script>
 </head>
 <body>
     <div class="main_container">
@@ -25,15 +26,15 @@
             <div class="snake_body" alt="snake_body" style="grid-column-start: 8; grid-row-start: 10;"></div>
             <div class="snake_body" alt="snake_body" style="grid-column-start: 9; grid-row-start: 10;"></div>
             <img id="apple" src="images/japko.png" alt="apple">
-<!--            <div class="score_board">-->
-<!--                <p>Time:</p>-->
-<!--                <p>Score:</p>-->
-<!--            </div>-->
-<!--            <button onclick="play();">S</button>-->
+            <div class="score_board">
+                <p>Time:</p>
+                <p id="score">Score:<span id="myScore" > 0</span></p>
+            </div>
+<!--           <button onclick="play();">S</button>-->
         </div>
 
     </div>
 
-    <script src="game.js"></script>
+ 
 </body>
 </html>

@@ -1,11 +1,14 @@
-const polykSound = new Audio("polykSound.mp3");
+import * as util from './util.js';
+const swallowSound = new Audio("polykSound.mp3");
+let score = 0;
+let snakeBodyCoordinates = [{x: 10, y: 8}, {x: 10, y: 9}]
 let direction = "d";
-var intervalId;
-var snakeLength = 2
-var gameBoard = document.getElementById('game_board');
-var snakeBody = gameBoard.getElementsByClassName('snake_body');
-var snakeElements = [{x: 10, y: 8},
-{x: 10, y: 9}]
+let intervalId;
+
+let snake = document.getElementById('snake');
+let gameBoard = document.getElementById('game_board');
+let snakeBodyElements = gameBoard.getElementsByClassName('snake_body');
+
 
 initGame();
 
@@ -28,95 +31,121 @@ function initGame() {
     })
 }
 
-function updateSnakeBody() {
-    for (i = 0; i < snakeBody.length; i++) {
-        snakeBody[i].style.gridColumnStart = snakeElements[i]['y'];
-        snakeBody[i].style.gridRowStart = snakeElements[i]['x'];
+function displaySnakeBodyOnBoard() {
+    for (let i = 0; i < snakeBodyElements.length; i++) {
+        snakeBodyElements[i].style.gridColumnStart = snakeBodyCoordinates[i]['y'];
+        snakeBodyElements[i].style.gridRowStart = snakeBodyCoordinates[i]['x'];
     }
 
 }
 
-function moveSnakeBody(x, y) {
-    snakeElements[0]['x'] = x;
-    snakeElements[0]['y'] = y;
-    snakeElements.push(snakeElements.splice(0, 1)[0]);
+function updateSnakeBodyCoordinates(x, y) {
+    snakeBodyCoordinates[0]['x'] = x;
+    snakeBodyCoordinates[0]['y'] = y;
+    snakeBodyCoordinates.push(snakeBodyCoordinates.splice(0, 1)[0]);
 }
 
-function play(){
-    polykSound.play();
+
+function moveSnake() {
+    let snakeY = getComputedStyle(snake).getPropertyValue('grid-column-start');
+    let snakeX = getComputedStyle(snake).getPropertyValue('grid-row-start');
+
+    displayAppleOnBoard(snakeY, snakeX);
+    changeSnakeDirection(snakeX, snakeY);
+
 }
+
+function changeSnakeDirection(x, y){
+    updateSnakeBodyCoordinates(x, y);
+    displaySnakeBodyOnBoard();
+
+    if (direction === "d" && checkIfMoveRightIsValid(x,y)) {
+        snake.style.gridColumnStart = (parseInt(y) + 1);
+        document.querySelector("#snake").style.transform = "rotate(0deg)";
+    }
+    else if (direction === "a" && checkIfMoveLeftIsValid(x,y))  {
+        snake.style.gridColumnStart = (parseInt(y) - 1);
+        document.querySelector("#snake").style.transform = "rotate(180deg)";
+    }
+    else if (direction === "w" && checkIfMoveUpIsValid(x,y))  {
+        snake.style.gridRowStart = (parseInt(x) - 1);
+        document.querySelector("#snake").style.transform = "rotate(270deg)";
+    }
+    else if (direction === "s" && checkIfMoveDownIsValid(x,y)) {
+        snake.style.gridRowStart = (parseInt(x) + 1);
+        document.querySelector("#snake").style.transform = "rotate(90deg)";
+    }
+
+    else {
+        clearInterval(intervalId);
+    }
+}
+
+
+function checkIfMoveRightIsValid(x,y){
+    return parseInt(y) !== 20 && !checkIfFieldIsTaken(x, parseInt(y) + 1);
+}
+
+
+function checkIfMoveLeftIsValid(x,y){
+    return parseInt(y) !== 1 && !checkIfFieldIsTaken(x, parseInt(y) - 1);
+}
+
+function checkIfMoveUpIsValid(x,y){
+    return parseInt(x) !== 1 && !checkIfFieldIsTaken(parseInt(x) - 1,y);
+}
+
+function checkIfMoveDownIsValid(x,y){
+    return parseInt(x) !== 20 && !checkIfFieldIsTaken(parseInt(x) + 1, y);
+}
+
+
+function checkIfFieldIsTaken(x,y){
+    for(let i = 0; i < snakeBodyCoordinates.length; i++){
+        if (snakeBodyCoordinates[i]['x'] === x && snakeBodyCoordinates[i]['y'] === y ){
+           return true;
+        }
+        
+    }
+    return false;
+}
+
+
+function displayAppleOnBoard(snakeY, snakeX) {
+    let apple = document.getElementById('apple');
+    let appleY = getComputedStyle(apple).getPropertyValue('grid-column-start');
+    let appleX = getComputedStyle(apple).getPropertyValue('grid-row-start');
+
+    if ((snakeY === appleY) && (snakeX === appleX)) {
+        swallowSound.play();
+        score += 1;
+        myScore();
+
+        document.getElementById("")
+        apple.style.gridColumnStart = (util.getRandomInt(1, 20));
+        apple.style.gridRowStart = (util.getRandomInt(1, 20));
+
+        createNewSnakeBodyElement();
+
+    }
+}
+
+function createNewSnakeBodyElement(){
+        let newElement = document.createElement('div');
+        newElement.style.gridRowStart = snake.style.gridRowStart;
+        newElement.style.gridColumnStart = snake.style.gridColumnStart;
+        newElement.classList.add('snake_body');
+        gameBoard.appendChild(newElement);
+        snakeBodyCoordinates.unshift({x: snakeBodyCoordinates[0]['x'], y: snakeBodyCoordinates[0]['y']});
+}
+
+function myScore(){
+    document.getElementById('myScore').innerHTML = " " + score;
+}
+
 
 // function startGame() {
 //     let startDiv = document.getElementById("start");
 //     startDiv.style.display = "none";
 // }
-
-function moveSnake() {
-    let snake = document.getElementById('snake');
-    let snakeY = getComputedStyle(snake).getPropertyValue('grid-column-start');
-    let snakeX = getComputedStyle(snake).getPropertyValue('grid-row-start');
-    
-    appleOnBoard(snakeY, snakeX);
-    changeSnakeDirection(snakeX, snakeY);
-
-    
-
-}
-
-function appleOnBoard(snakeY, snakeX) {
-    let apple = document.getElementById('apple');
-    let appleY = getComputedStyle(apple).getPropertyValue('grid-column-start');
-    let appleX = getComputedStyle(apple).getPropertyValue('grid-row-start');
-    
-    if ((snakeY == appleY) && (snakeX == appleX)) {
-        play();
-        snakeLength += 1;
-        console.log(snakeLength)
-        apple.style.gridColumnStart = (getRandomInt(1, 20));
-        apple.style.gridRowStart = (getRandomInt(1, 20));
-
-        var newElement = document.createElement('div');
-        newElement.style.gridRowStart = snake.style.gridRowStart;
-        newElement.style.gridColumnStart = snake.style.gridColumnStart;
-        newElement.classList.add('snake_body');
-        gameBoard.appendChild(newElement);
-        snakeElements.unshift({x: snakeElements[0]['x'], y: snakeElements[0]['y']});
-        
-    }
-}
-
-function changeSnakeDirection(x, y){
-    moveSnakeBody(x, y);
-    updateSnakeBody();
-
-    if (direction === "d" && parseInt(y) != 20) { 
-        snake.style.gridColumnStart = (parseInt(y) + 1);
-        document.querySelector("#snake").style.transform = "rotate(0deg)";
-    }
-    else if (direction === "a" && parseInt(y) != 1)  {
-        snake.style.gridColumnStart = (parseInt(y) - 1);
-        document.querySelector("#snake").style.transform = "rotate(180deg)";
-    }
-    else if (direction === "w" && parseInt(x) != 1)  {
-        snake.style.gridRowStart = (parseInt(x) - 1);
-        document.querySelector("#snake").style.transform = "rotate(270deg)";
-    }
-    else if (direction === "s" && parseInt(x) != 20) {
-        snake.style.gridRowStart = (parseInt(x) + 1);
-        document.querySelector("#snake").style.transform = "rotate(90deg)";
-    } 
-    
-
-    else {
-        clearInterval(intervalId);
-    }  
-          
-}
-
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-
+// alert("GAME OVER");
