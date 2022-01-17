@@ -3,13 +3,15 @@ let direction = "d";
 var intervalId;
 var snakeLength = 2
 var gameBoard = document.getElementById('game_board');
-var snakeElements = [{x: 9, y: 10}]
+var snakeBody = gameBoard.getElementsByClassName('snake_body');
+var snakeElements = [{x: 10, y: 8},
+{x: 10, y: 9}]
 
 initGame();
 
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
-    intervalId = setInterval(moveSnake, 1000);
+    intervalId = setInterval(moveSnake, 500);
     window.addEventListener('keydown', (edge)=>{
         if (edge.key === "d") {
             direction = "d"
@@ -24,6 +26,20 @@ function initGame() {
             direction = "s"
         }       
     })
+}
+
+function updateSnakeBody() {
+    for (i = 0; i < snakeBody.length; i++) {
+        snakeBody[i].style.gridColumnStart = snakeElements[i]['y'];
+        snakeBody[i].style.gridRowStart = snakeElements[i]['x'];
+    }
+
+}
+
+function moveSnakeBody(x, y) {
+    snakeElements[0]['x'] = x;
+    snakeElements[0]['y'] = y;
+    snakeElements.push(snakeElements.splice(0, 1)[0]);
 }
 
 function play(){
@@ -43,6 +59,8 @@ function moveSnake() {
     appleOnBoard(snakeY, snakeX);
     changeSnakeDirection(snakeX, snakeY);
 
+    
+
 }
 
 function appleOnBoard(snakeY, snakeX) {
@@ -58,15 +76,18 @@ function appleOnBoard(snakeY, snakeX) {
         apple.style.gridRowStart = (getRandomInt(1, 20));
 
         var newElement = document.createElement('div');
-        newElement.style.gridRowStart = snake.style.gridRowStart
-        newElement.style.gridColumnStart = snake.style.gridColumnStart
-        newElement.classList.add('snake_body')
-        gameBoard.appendChild(newElement)
+        newElement.style.gridRowStart = snake.style.gridRowStart;
+        newElement.style.gridColumnStart = snake.style.gridColumnStart;
+        newElement.classList.add('snake_body');
+        gameBoard.appendChild(newElement);
+        snakeElements.unshift({x: snakeElements[0]['x'], y: snakeElements[0]['y']});
         
     }
 }
 
 function changeSnakeDirection(x, y){
+    moveSnakeBody(x, y);
+    updateSnakeBody();
 
     if (direction === "d" && parseInt(y) != 20) { 
         snake.style.gridColumnStart = (parseInt(y) + 1);
@@ -84,7 +105,7 @@ function changeSnakeDirection(x, y){
         snake.style.gridRowStart = (parseInt(x) + 1);
         document.querySelector("#snake").style.transform = "rotate(90deg)";
     } 
-
+    
 
     else {
         clearInterval(intervalId);
