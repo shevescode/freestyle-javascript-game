@@ -1,14 +1,15 @@
 import * as util from './util.js';
 const swallowSound = new Audio("polykSound.mp3");
+
+
 let score = 0;
 let snakeBodyCoordinates = [{x: 10, y: 8}, {x: 10, y: 9}]
 let direction = "d";
 let intervalId;
-
+let mainMenu = document.getElementById('menu');
 let snake = document.getElementById('snake');
 let gameBoard = document.getElementById('game_board');
 let snakeBodyElements = gameBoard.getElementsByClassName('snake_body');
-
 
 initGame();
 
@@ -16,19 +17,20 @@ function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
     intervalId = setInterval(moveSnake, 500);
     window.addEventListener('keydown', (edge)=>{
-        if (edge.key === "d") {
+        if (edge.key === "d" && direction != "a") {
             direction = "d"
         }
-        if (edge.key === "a") {
+        if (edge.key === "a" && direction != "d") {
             direction = "a"
         }
-        if (edge.key === "w") {
+        if (edge.key === "w" && direction != "s") {
             direction = "w"
         }
-        if (edge.key === "s") {
+        if (edge.key === "s" && direction != "w") {
             direction = "s"
         }       
     })
+
 }
 
 function displaySnakeBodyOnBoard() {
@@ -83,6 +85,7 @@ function changeSnakeDirection(x, y){
 
 
 function checkIfMoveRightIsValid(x,y){
+
     return parseInt(y) !== 20 && !checkIfFieldIsTaken(x, parseInt(y) + 1);
 }
 
@@ -102,7 +105,7 @@ function checkIfMoveDownIsValid(x,y){
 
 function checkIfFieldIsTaken(x,y){
     for(let i = 0; i < snakeBodyCoordinates.length; i++){
-        if (snakeBodyCoordinates[i]['x'] === x && snakeBodyCoordinates[i]['y'] === y ){
+        if (snakeBodyCoordinates[i]['x'] == x && snakeBodyCoordinates[i]['y'] == y ){
            return true;
         }
         
@@ -144,8 +147,3 @@ function myScore(){
 }
 
 
-// function startGame() {
-//     let startDiv = document.getElementById("start");
-//     startDiv.style.display = "none";
-// }
-// alert("GAME OVER");

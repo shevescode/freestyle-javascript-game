@@ -10,30 +10,88 @@
     @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
     </style>
     <script type="module" src="game.js"></script>
+   
 </head>
 <body>
     <div class="main_container">
         <div class="header">
-            <h1>DUMMY SNEK</h1>
+                   <h1><img src="images/snek.png" alt="snake" style="transform: rotate(90deg); width: 50px; height:50px">  DUMMY SNEK</h1>
+        </div>
+        <div id="menu" style="display: block">
+            <div class="btn-group">
+                <button onclick="switchBetweenMenuAndGame() ">START GAME</button>
+                <button onclick="switchBetweenMenuAndOptions() ">OPTIONS</button>
+                <button onclick="switchBetweenMenuAndScoreBoard()">SCORE BOARD</button>
+                <button onclick="switchBetweenMenuAndCredit()">CREDITS</button>
+            </div>
         </div>
 
-<!--        <div id="start">-->
-<!--            <a href="#" onclick="startGame()">Start Game</a>-->
-<!--        </div>-->
+        <div id="options" style="display: none">
+            <p>Add player name:</p>
+            <p>Choose how to make snake move</p>
+            <button onclick="backToMainMenu()">BACK TO MENU</button>
+        </div>
 
-        <div id="game_board">
+        <div id="scoreBoard" style="display: none">
+            <p>PLAYER 1:</p>
+            <p>PLAYER 2:</p>
+            <button onclick="backToMainMenu()">BACK TO MENU</button>
+        </div>
+
+
+        <div id="credits" style="display: none">
+            <h3>AUTHORS:</h3>
+            <p><strong>Sebastian CHOMENTOWSKI :)</strong></p>
+            <button onclick="backToMainMenu()">BACK TO MENU</button>
+        </div>
+
+
+        <div id="game_board" style="display: none">
             <img id="snake" src="images/snek.png" alt="snake">
             <div class="snake_body" alt="snake_body" style="grid-column-start: 8; grid-row-start: 10;"></div>
             <div class="snake_body" alt="snake_body" style="grid-column-start: 9; grid-row-start: 10;"></div>
             <img id="apple" src="images/japko.png" alt="apple">
-            <div class="score_board">
-                <p>Time:</p>
+            <div class="player_score">
                 <p id="score">Score:<span id="myScore" > 0</span></p>
             </div>
-<!--           <button onclick="play();">S</button>-->
+
         </div>
 
     </div>
+
+    <script>
+    function switchBetweenMenuAndGame() {
+    game_board.style.display = "grid";
+    
+    menu.style.display = "none";
+    options.style.display = "none";
+    scoreBoard.style.display = "none";
+}
+    function switchBetweenMenuAndOptions() {
+        options.style.display = "block";
+
+        menu.style.display = "none";
+}
+    function switchBetweenMenuAndScoreBoard() {
+        scoreBoard.style.display = "block";
+
+        menu.style.display = "none";
+        options.style.display = "none";
+    }
+
+    function switchBetweenMenuAndCredit() {
+        credits.style.display = "block";
+
+        menu.style.display = "none";
+        options.style.display = "none";
+        scoreBoard.style.display = "none";
+    }
+
+    function backToMainMenu() {
+       menu.style.display = "block"; 
+    }
+ 
+</script>
 
  
 </body>
