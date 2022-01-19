@@ -19,30 +19,36 @@
         </div>
         <div id="menu" style="display: block">
             <div class="btn-group">
-                <button onclick="switchBetweenMenuAndGame() ">START GAME</button>
-                <button onclick="switchBetweenMenuAndOptions() ">OPTIONS</button>
+                <button id="switchToGame">START GAME</button>
+                <button id="switchToOption" onclick="switchBetweenMenuAndOptions() ">OPTIONS</button>
                 <button onclick="switchBetweenMenuAndScoreBoard()">SCORE BOARD</button>
-                <button onclick="switchBetweenMenuAndCredit()">CREDITS</button>
+                <button onclick="switchBetweenMenuAndCredits()">CREDITS</button>
             </div>
         </div>
 
         <div id="options" style="display: none">
             <p>Add player name:</p>
             <p>Choose how to make snake move</p>
-            <button onclick="backToMainMenu()">BACK TO MENU</button>
+            <div class="btn-group">
+            <button id="btn" onclick="backToMainMenu()">BACK TO MENU</button>
+            </div>
         </div>
 
         <div id="scoreBoard" style="display: none">
             <p>PLAYER 1:</p>
             <p>PLAYER 2:</p>
-            <button onclick="backToMainMenu()">BACK TO MENU</button>
+             <div class="btn-group">
+            <button id="btn" onclick="backToMainMenu()">BACK TO MENU</button>
+            </div>
         </div>
 
 
         <div id="credits" style="display: none">
             <h3>AUTHORS:</h3>
             <p><strong>Sebastian CHOMENTOWSKI :)</strong></p>
-            <button onclick="backToMainMenu()">BACK TO MENU</button>
+            <div class="btn-group">
+            <button id="btn" onclick="backToMainMenu()">BACK TO MENU</button>
+            </div>
         </div>
 
 
@@ -60,13 +66,13 @@
     </div>
 
     <script>
-    function switchBetweenMenuAndGame() {
-    game_board.style.display = "grid";
+//     function switchBetweenMenuAndGame() {
+//     game_board.style.display = "grid";
     
-    menu.style.display = "none";
-    options.style.display = "none";
-    scoreBoard.style.display = "none";
-}
+//     menu.style.display = "none";
+//     options.style.display = "none";
+//     scoreBoard.style.display = "none";
+// }
     function switchBetweenMenuAndOptions() {
         options.style.display = "block";
 
@@ -79,7 +85,7 @@
         options.style.display = "none";
     }
 
-    function switchBetweenMenuAndCredit() {
+    function switchBetweenMenuAndCredits() {
         credits.style.display = "block";
 
         menu.style.display = "none";
@@ -89,6 +95,10 @@
 
     function backToMainMenu() {
        menu.style.display = "block"; 
+       
+       credits.style.display = "none";
+        options.style.display = "none";
+        scoreBoard.style.display = "none";
     }
  
 </script>

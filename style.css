@@ -7,6 +7,7 @@
 
 body {
     background-color: rgb(214, 229, 227);
+    color: #f5e2bf;
 }
 
 .header {
@@ -18,8 +19,8 @@ body {
 }
 
 #menu,#options, #scoreBoard,#credits {
-
-    background-color: rgb(255, 255, 255);
+    position:relative;
+    background-color: #7CB15F; 
     width: 800px;
     height: 800px;
     margin: 40px auto auto;
@@ -30,6 +31,7 @@ body {
 
 #game_board {
     position: relative;
+     background-color: #7CB15F; 
     background-color: rgb(255, 255, 255);
     width: 800px;
     height: 800px;
@@ -98,4 +100,9 @@ h1 {
 /* Add a background color on hover */
 .btn-group button:hover {
   background-color: #416e25;
+}
+
+#btn {
+  position: absolute;
+  bottom: 0px;
 }

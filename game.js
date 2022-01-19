@@ -11,7 +11,7 @@ let snake = document.getElementById('snake');
 let gameBoard = document.getElementById('game_board');
 let snakeBodyElements = gameBoard.getElementsByClassName('snake_body');
 
-initGame();
+// initGame();
 
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
@@ -146,4 +146,15 @@ function myScore(){
     document.getElementById('myScore').innerHTML = " " + score;
 }
 
+
+let switchToGame = document.getElementById("switchToGame");
+
+switchToGame.onclick = function switchBetweenMenuAndGame(){
+    game_board.style.display = "grid";
+    initGame();
+
+    menu.style.display = "none";
+    options.style.display = "none";
+    scoreBoard.style.display = "none";
+}
 
