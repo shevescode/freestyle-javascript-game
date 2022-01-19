@@ -18,7 +18,7 @@ body {
     height: 100px;
 }
 
-#menu,#options, #scoreBoard,#credits {
+#menu,#options, #scoreBoard,#credits,#gameOver {
     position:relative;
     background-color: #7CB15F; 
     width: 800px;
@@ -73,13 +73,6 @@ h1 {
     font-family: 'Permanent Marker', cursive;
 }
 
-/*#start {*/
-/*    text-align: center;*/
-/*    text-decoration: none;*/
-/*    background-color: pink;*/
-/*    font-size: 50px;*/
-/*}*/
-
 .btn-group button {
   background-color: #7CB15F; 
   border: 2px solid #416e25; 
@@ -103,5 +96,46 @@ h1 {
 
 .backButton {
   position: absolute;
-  bottom: 0px;
+  bottom: 0;
+}
+
+.slider {
+  -webkit-appearance: none;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  width: 50%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #04AA6D;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #04AA6D;
+  cursor: pointer;
+}
+
+.game_over {
+    padding: 150px;
+    font-size: 100px;
+    text-align: center;
+    letter-spacing: 10px;
 }

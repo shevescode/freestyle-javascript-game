@@ -2,9 +2,11 @@ import * as util from './util.js';
 const swallowSound = new Audio("polykSound.mp3");
 
 
+let speed = 600;
 let score = 0;
 let snakeBodyCoordinates = [{x: 10, y: 8}, {x: 10, y: 9}]
 let direction = "d";
+let futureDirection = "d";
 let intervalId;
 let mainMenu = document.getElementById('menu');
 let snake = document.getElementById('snake');
@@ -14,20 +16,22 @@ let snakeBodyElements = gameBoard.getElementsByClassName('snake_body');
 
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
-    intervalId = setInterval(moveSnake, 500);
+    intervalId = setInterval(moveSnake, speed);
     window.addEventListener('keydown', (edge)=>{
-        if (edge.key === "d" && direction != "a") {
-            direction = "d"
+        console.log("Wciśnięty klawisz" + edge.key);
+        if (edge.key === "d") {
+            futureDirection = "d"
         }
-        if (edge.key === "a" && direction != "d") {
-            direction = "a"
+        if (edge.key === "a") {
+            futureDirection = "a"
         }
-        if (edge.key === "w" && direction != "s") {
-            direction = "w"
+        if (edge.key === "w") {
+            futureDirection = "w"
         }
-        if (edge.key === "s" && direction != "w") {
-            direction = "s"
-        }       
+        if (edge.key === "s") {
+            futureDirection = "s"
+        }     
+          
     })
 
 }
@@ -55,10 +59,24 @@ function moveSnake() {
     changeSnakeDirection(snakeX, snakeY);
 
 }
-
+function checkFutureDirection() {
+    if (direction == "d" && futureDirection != "a"){
+        direction = futureDirection;
+    }
+    else if (direction == "a" && futureDirection != "d") {
+        direction = futureDirection;
+    }
+    else if (direction == "w" && futureDirection != "s") {
+        direction = futureDirection;
+    }
+    else if (direction == "s" && futureDirection != "w") {
+        direction = futureDirection;
+    }
+}
 function changeSnakeDirection(x, y){
     updateSnakeBodyCoordinates(x, y);
     displaySnakeBodyOnBoard();
+    checkFutureDirection();
 
     if (direction === "d" && checkIfMoveRightIsValid(x,y)) {
         snake.style.gridColumnStart = (parseInt(y) + 1);
@@ -145,16 +163,12 @@ function myScore(){
     document.getElementById('myScore').innerHTML = " " + score;
 }
 
-function startGame(){
-    initGame();
-    moveSnake();
-}
 
 let switchToGame = document.getElementById("switchToGame");
 
 switchToGame.onclick = function switchBetweenMenuAndGame(){
     game_board.style.display = "grid";
-    startGame();
+    initGame();
 
     menu.style.display = "none";
 }
@@ -163,33 +177,49 @@ switchToGame.onclick = function switchBetweenMenuAndGame(){
 let switchToOptions = document.getElementById("switchToOption");
 
 switchToOptions.onclick = function switchBetweenMenuAndOptions() {
-        options.style.display = "block";
+    options.style.display = "block";
 
-        menu.style.display = "none";
+    menu.style.display = "none";
 }
 
 let switchToScoreBoard = document.getElementById("switchToScoreBoard");
  switchToScoreBoard.onclick = function switchBetweenMenuAndScoreBoard() {
-        scoreBoard.style.display = "block";
+    scoreBoard.style.display = "block";
 
-        menu.style.display = "none";
+    menu.style.display = "none";
        
-    }
+ }
 
-    let switchCredits = document.getElementById("switchToCredits");
+ let switchCredits = document.getElementById("switchToCredits");
  switchCredits.onclick = function switchBetweenMenuAndCredits() {
-        credits.style.display = "block";
+    credits.style.display = "block";
 
-        menu.style.display = "none";
+    menu.style.display = "none";
     
     }
-    
-// let backToMainMenu = document.getElementsByClassName("backButton");
-// backToMainMenu.onclick = function backToMainMenu() {
-//     console.log("klikam");
-//        menu.style.display = "block";
 
-//     options.style.display = "none";
-//        credits.style.display = "none";
-//         scoreBoard.style.display = "none";
-//     }
+
+    
+let backToMainMenuButtons = document.getElementsByClassName("backButton");
+
+for(let i=0; i < backToMainMenuButtons.length; i++){
+backToMainMenuButtons[i].onclick = function backToMainMenu() {
+    menu.style.display = "block";
+
+    options.style.display = "none";
+    credits.style.display = "none";
+    scoreBoard.style.display = "none";
+    gameOver.style.display = "none";
+}
+}
+
+
+
+let slider = document.getElementById("myRange");
+let output = document.getElementById("demo");
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+    output.innerHTML = this.value;
+}
