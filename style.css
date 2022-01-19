@@ -31,7 +31,6 @@ body {
 
 #game_board {
     position: relative;
-     background-color: #7CB15F; 
     background-color: rgb(255, 255, 255);
     width: 800px;
     height: 800px;
@@ -102,7 +101,7 @@ h1 {
   background-color: #416e25;
 }
 
-#btn {
+.backButton {
   position: absolute;
   bottom: 0px;
 }

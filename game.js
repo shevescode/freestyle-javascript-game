@@ -11,7 +11,6 @@ let snake = document.getElementById('snake');
 let gameBoard = document.getElementById('game_board');
 let snakeBodyElements = gameBoard.getElementsByClassName('snake_body');
 
-// initGame();
 
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
@@ -146,15 +145,51 @@ function myScore(){
     document.getElementById('myScore').innerHTML = " " + score;
 }
 
+function startGame(){
+    initGame();
+    moveSnake();
+}
 
 let switchToGame = document.getElementById("switchToGame");
 
 switchToGame.onclick = function switchBetweenMenuAndGame(){
     game_board.style.display = "grid";
-    initGame();
+    startGame();
 
     menu.style.display = "none";
-    options.style.display = "none";
-    scoreBoard.style.display = "none";
 }
 
+
+let switchToOptions = document.getElementById("switchToOption");
+
+switchToOptions.onclick = function switchBetweenMenuAndOptions() {
+        options.style.display = "block";
+
+        menu.style.display = "none";
+}
+
+let switchToScoreBoard = document.getElementById("switchToScoreBoard");
+ switchToScoreBoard.onclick = function switchBetweenMenuAndScoreBoard() {
+        scoreBoard.style.display = "block";
+
+        menu.style.display = "none";
+       
+    }
+
+    let switchCredits = document.getElementById("switchToCredits");
+ switchCredits.onclick = function switchBetweenMenuAndCredits() {
+        credits.style.display = "block";
+
+        menu.style.display = "none";
+    
+    }
+    
+// let backToMainMenu = document.getElementsByClassName("backButton");
+// backToMainMenu.onclick = function backToMainMenu() {
+//     console.log("klikam");
+//        menu.style.display = "block";
+
+//     options.style.display = "none";
+//        credits.style.display = "none";
+//         scoreBoard.style.display = "none";
+//     }
