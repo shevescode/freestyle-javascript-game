@@ -1,14 +1,14 @@
 import * as util from './util.js';
 const swallowSound = new Audio("polykSound.mp3");
 
-
+// let gameOver = 0;
 let speed = 600;
 let score = 0;
 let snakeBodyCoordinates = [{x: 10, y: 8}, {x: 10, y: 9}]
 let direction = "d";
 let futureDirection = "d";
 let intervalId;
-let mainMenu = document.getElementById('menu');
+let mainMenu = document.getElementById('menu'); //do wyjebania
 let snake = document.getElementById('snake');
 let gameBoard = document.getElementById('game_board');
 let snakeBodyElements = gameBoard.getElementsByClassName('snake_body');
@@ -96,7 +96,17 @@ function changeSnakeDirection(x, y){
     }
 
     else {
-        clearInterval(intervalId);
+    // gameOver = 1;
+    clearInterval(intervalId)
+    // console.log(gameOver);
+    let gameOver = document.getElementById("gameoOver");
+    gameOver.style.display = "block";
+    gameBoard.style.display = "none";
+    
+    // displayGameOverBoard();
+    
+    // gameOver = 0;
+
     }
 }
 
@@ -167,7 +177,7 @@ function myScore(){
 let switchToGame = document.getElementById("switchToGame");
 
 switchToGame.onclick = function switchBetweenMenuAndGame(){
-    game_board.style.display = "grid";
+    gameBoard.style.display = "grid";
     initGame();
 
     menu.style.display = "none";
@@ -195,7 +205,7 @@ let switchToScoreBoard = document.getElementById("switchToScoreBoard");
     credits.style.display = "block";
 
     menu.style.display = "none";
-    
+    gameOver = 0;
     }
 
 
@@ -213,6 +223,12 @@ backToMainMenuButtons[i].onclick = function backToMainMenu() {
 }
 }
 
+// function displayGameOverBoard(){
+//     let gameOver = document.getElementById("gameover");
+//     gameOver.style.display = "block";
+
+//     gameBoard.style.display = "none";
+// }
 
 
 let slider = document.getElementById("myRange");
