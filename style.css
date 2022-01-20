@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     grid-column-start: 1;
@@ -13,20 +13,19 @@ body {
 .header {
     background-color: #416E25;
     color: #f5e2bf;
-    letter-spacing:5px;
+    letter-spacing: 5px;
     width: auto;
     height: 100px;
 }
 
-#menu,#options, #scoreBoard,#credits,#gameOver {
-    position:relative;
-    background-color: #7CB15F; 
+#menu, #options, #scoreBoard, #credits, #gameOver {
+    position: relative;
+    background-color: #7CB15F;
     width: 800px;
     height: 800px;
     margin: 40px auto auto;
     box-shadow: #777777 5px 5px 10px 10px;
 }
-
 
 
 #game_board {
@@ -48,12 +47,13 @@ h1 {
     height: 100px;
 }
 
+
 #snake {
     grid-column-start: 10;
     grid-row-start: 10;
 }
 
-#apple{
+#apple {
     grid-column-start: 15;
     grid-row-start: 15;
 }
@@ -72,80 +72,103 @@ h1 {
     position: absolute;
     font-family: 'Permanent Marker', cursive;
 }
+/*OPTIONS,SCORES,CREDITS*/
+.authors,.topScores,.options {
+    padding: 30px 0 40px 0;
+    font-size: 60px;
+    text-align: center;
+}
 
+
+
+
+ul {
+    color: #F9F6F0;
+    list-style: none;
+    font-size: 30px;
+    text-align: center;
+}
+
+li  {
+    padding: 2px;
+}
+
+/*BUTTONS MODIFICATIONS*/
 .btn-group button {
-  background-color: #7CB15F; 
-  border: 2px solid #416e25; 
-  color: #f5e2bf;
-  font-size: 30px;
-  cursor: pointer; /* Pointer/hand icon */
-  width: 100%; /* Set a width if needed */
-  height: 200px;
-  display: block; /* Make the buttons appear below each other */
-  letter-spacing: 4px;
+    background-color: #669B49;
+    border: 2px solid #416e25;
+    color: #f5e2bf;
+    font-size: 30px;
+    cursor: pointer; /* Pointer/hand icon */
+    width: 100%; /* Set a width if needed */
+    height: 200px;
+    display: block; /* Make the buttons appear below each other */
+    letter-spacing: 4px;
 }
 
 .btn-group button:not(:last-child) {
-  border-bottom: none; /* Prevent double borders */
+    border-bottom: none; /* Prevent double borders */
 }
 
-/* Add a background color on hover */
 .btn-group button:hover {
-  background-color: #416e25;
+    background-color: #416e25;
 }
 
-.backButton {
-  position: absolute;
-  bottom: 0;
+.backButton, #playAgain {
+    position: absolute;
+    bottom: 0;
 }
 
-.slider {
-  -webkit-appearance: none;
-  display: block;
-  margin-right: auto;
-  margin-left: auto;
-  width: 50%;
-  height: 25px;
-  background: #d3d3d3;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-.slider:hover {
-  opacity: 1;
-}
-
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  background: #04AA6D;
-  cursor: pointer;
-}
-
-.slider::-moz-range-thumb {
-  width: 25px;
-  height: 25px;
-  background: #04AA6D;
-  cursor: pointer;
-}
-
-.game_over {
-    padding: 150px;
-    font-size: 50px;
+#game_over {
+    padding-top: 150px;
+    font-size: 100px;
     text-align: center;
     letter-spacing: 10px;
 }
 
-#playAgain {
-  position: absolute;
-  bottom: 0;
+.totalScore {
+    padding-top: 50px;
+    font-size: 60px;
+    text-align: center;
 }
 
 .obstacle {
-  background-color: #000000;
-  border: 1px solid black;
+    background-color: saddlebrown;
+    border: 1px solid black;
+}
+
+
+/*SLIDER*/
+
+.slider {
+    -webkit-appearance: none;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 50%;
+    height: 30px;
+    background: #F9F6F0;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider:hover {
+    opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 30px;
+    background: #416E25;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    background: #04AA6D;
+    cursor: pointer;
 }

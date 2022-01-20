@@ -7,106 +7,127 @@
     <link rel="icon" href="data:image/gif;base64,R0lGODlhAQABAAAAACwAAAAAAQABAAA=">
     <link rel="stylesheet" href="style.css">
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
     </style>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="module" defer src="game.js"></script>
-   
+    <script>setInterval(function () {
+        $(".animate").animate({color: "red"}, "slow");
+        $(".animate").animate({color: "black"}, "slow");
+    }, 100);</script>
 </head>
 <body>
-    <div class="main_container">
-        <div class="header">
-                   <h1><img src="images/snek.png" alt="snake" style="transform: rotate(90deg); width: 50px; height:50px">  DUMMY SNEK</h1>
+<div class="main_container">
+    <div class="header">
+        <h1><img src="images/snek.png" alt="snake" style="transform: rotate(90deg); width: 50px; height:50px"> DUMMY
+            SNEK</h1>
+    </div>
+    <div id="menu" style="display: block">
+        <div class="btn-group">
+            <button id="switchToGame">START GAME</button>
+            <button id="switchToOption">OPTIONS</button>
+            <button id="switchToScoreBoard">SCORE BOARD</button>
+            <button id="switchToCredits">CREDITS</button>
         </div>
-        <div id="menu" style="display: block">
-            <div class="btn-group">
-                <button id="switchToGame">START GAME</button>
-                <button id="switchToOption">OPTIONS</button>
-                <button id="switchToScoreBoard">SCORE BOARD</button>
-                <button id="switchToCredits">CREDITS</button>
-            </div>
-        </div>
-
-        <div id="options" style="display: none">
-        <p>Set snake speed</p>
-        <input type="range" min="1" max="10" value="5" class="slider" id="myRange">
-        
-        <p style="text-align: center">Value: <span id="demo"></span></p><br>
-            <p>Add player name:</p>
-            <div class="btn-group">
-            <button class="backButton">BACK TO MENU</button>
-            </div>
-        </div>
-
-        <div id="scoreBoard" style="display: none">
-            <p style="text-align: center">TOP SCORES:</p>
-            
-             <div class="btn-group">
-                <button class="backButton">BACK TO MENU</button>
-            </div>
-        </div>
-
-
-        <div id="credits" style="display: none">
-            <h3>AUTHORS:</h3>
-            <p><strong>Sebastian CHOMENTOWSKI :)</strong></p>
-            <div class="btn-group">
-            <button class="backButton">BACK TO MENU</button>
-            </div>
-        </div>
-
-
-        <div id="game_board" style="display: none">
-            <img id="snake" src="images/snek.png" alt="snake">
-            <div class="snake_body" alt="snake_body" style="grid-column-start: 8; grid-row-start: 10;"></div>
-            <div class="snake_body" alt="snake_body" style="grid-column-start: 9; grid-row-start: 10;"></div>
-            <img id="apple" src="images/japko.png" alt="apple">
-            <div class="player_score">
-                <p id="score" style="color: black">Score:<span id="myScore" > 0</span></p>
-            </div>
-
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-
-            
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-            <div class="obstacle" style="display: none"></div>
-        </div>
-        <div id="gameOver" style="display: none">
-            <p class="game_over">GAME OVER</p>
-            <p>Your score was: <span id="finallScore"></span></p>
-            <div class="btn-group">
-                <button id="playAgain">Would you like to play again?</button>
-            </div>
-       </div>
-        
-        
     </div>
 
-    <script>
+    <div id="options" style="display: none">
+        <h3 class="options">CHOOSE OPTIONS:</h3>
+        <ul>
+            <ul>
+                <li>Set snake speed</li>
+                <li><input type="range" min="1" max="10" value="5" class="slider" id="myRange"></li>
+                <li style="font-size: 20px">Value: <span id="demo"></span></li>
+                <br>
 
-</script>
+                <li>Choose level (1-3)</li>
+                <li><input type="range" min="1" max="3" value="2" class="slider" id="chosenLevel"></li>
+                <li style="font-size: 20px">Value: <span id="level"></span></li>
+            </ul>
+        </ul>
 
- 
+        <div class="btn-group">
+            <button class="backButton">BACK TO MENU</button>
+        </div>
+    </div>
+
+    <div id="scoreBoard" style="display: none">
+        <h3 class="topScores">TOP SCORES:</h3>
+
+        <div class="btn-group">
+            <button class="backButton">BACK TO MENU</button>
+        </div>
+    </div>
+
+
+    <div id="credits" style="display: none">
+        <h3 class="authors">AUTHORS:</h3>
+        <ul>
+            <li><strong>1. Sebastian CHOMENTOWSKI </strong></li>
+            <li>chomentowski.s@gmail.com</li>
+            <li>Zawsze chętnie pomogę komuś w potrzebie.</li>
+            <br>
+
+            <li><strong>2. Wiktoria Rajba</strong></li>
+            <li>wiktoria.rajba391@gmail.com</li>
+
+            <div class="btn-group">
+                <button class="backButton">BACK TO MENU</button>
+            </div>
+    </div>
+
+
+    <div id="game_board" style="display: none">
+        <img id="snake" src="images/snek.png" alt="snake">
+        <div class="snake_body" alt="snake_body" style="grid-column-start: 8; grid-row-start: 10;"></div>
+        <div class="snake_body" alt="snake_body" style="grid-column-start: 9; grid-row-start: 10;"></div>
+        <img id="apple" src="images/japko.png" alt="apple">
+        <div class="player_score">
+            <p id="score" style="color: black">Score:<span id="myScore"> 0</span></p>
+        </div>
+
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+
+
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+        <div class="obstacle" style="display: none"></div>
+    </div>
+
+
+    <div id="gameOver" style="display: none">
+        <p id="game_over" class="animate">GAME OVER</p>
+        <p class="totalScore">Your total score: <strong><span id="finallScore"></span></strong></p>
+        <div class="btn-group">
+            <button id="playAgain">Would you like to play again?</button>
+        </div>
+    </div>
+
+
+</div>
+
+
 </body>
 </html>

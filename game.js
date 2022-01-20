@@ -1,4 +1,5 @@
 import * as util from './util.js';
+
 const swallowSound = new Audio("polykSound.mp3");
 
 let speed = 500;
@@ -6,7 +7,16 @@ let scoreMultiplier = 5
 let score = 0;
 let level = 1;
 let snakeBodyCoordinates = [{x: 10, y: 8}, {x: 10, y: 9}]
-let obstacleCoordinates =[{x: 4, y: 4}, {x: 5, y: 4}, {x: 4, y: 5}, {x: 17, y: 17}, {x: 16, y: 17}, {x: 17, y: 16}, {x: 4, y: 17}, {x: 5, y: 17}, {x: 4, y: 16}, {x: 17, y: 4}, {x: 16, y: 4}, {x: 17, y: 5}, {x: 11, y: 4}, {x: 11, y: 5}, {x: 11, y: 7}, {x: 11, y: 8}, {x: 11, y: 10}, {x: 11, y: 11}, {x: 11, y: 13}, {x: 11, y: 14}, {x: 11, y: 16}, {x: 11, y: 17}];
+let obstacleCoordinates = [{x: 4, y: 4}, {x: 5, y: 4}, {x: 4, y: 5}, {x: 17, y: 17}, {x: 16, y: 17}, {
+    x: 17,
+    y: 16
+}, {x: 4, y: 17}, {x: 5, y: 17}, {x: 4, y: 16}, {x: 17, y: 4}, {x: 16, y: 4}, {x: 17, y: 5}, {x: 11, y: 4}, {
+    x: 11,
+    y: 5
+}, {x: 11, y: 7}, {x: 11, y: 8}, {x: 11, y: 10}, {x: 11, y: 11}, {x: 11, y: 13}, {x: 11, y: 14}, {x: 11, y: 16}, {
+    x: 11,
+    y: 17
+}];
 let direction = "d";
 let futureDirection = "d";
 let intervalId;
@@ -19,9 +29,9 @@ let obstacleElements = gameBoard.getElementsByClassName('obstacle');
 
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
-    
+
     intervalId = setInterval(moveSnake, speed);
-    window.addEventListener('keydown', (edge)=>{
+    window.addEventListener('keydown', (edge) => {
         console.log("Wciśnięty klawisz" + edge.key);
         if (edge.key === "d") {
             futureDirection = "d"
@@ -34,8 +44,8 @@ function initGame() {
         }
         if (edge.key === "s") {
             futureDirection = "s"
-        }     
-          
+        }
+
     })
 
 }
@@ -49,19 +59,19 @@ function displaySnakeBodyOnBoard() {
 }
 
 function displayObstacleElement() {
-    if (level == 1) {
-    for (let i = 0; i < 12; i++) {
-        obstacleElements[i].style.gridColumnStart = obstacleCoordinates[i]['y'];
-        obstacleElements[i].style.gridRowStart = obstacleCoordinates[i]['x'];
-        obstacleElements[i].style.display = "block"
-    }
-    }
     if (level == 2) {
-    for (let i = 0; i < 22; i++) {
-        obstacleElements[i].style.gridColumnStart = obstacleCoordinates[i]['y'];
-        obstacleElements[i].style.gridRowStart = obstacleCoordinates[i]['x'];
-        obstacleElements[i].style.display = "block"
+        for (let i = 0; i < 12; i++) {
+            obstacleElements[i].style.gridColumnStart = obstacleCoordinates[i]['y'];
+            obstacleElements[i].style.gridRowStart = obstacleCoordinates[i]['x'];
+            obstacleElements[i].style.display = "block"
+        }
     }
+    if (level == 3) {
+        for (let i = 0; i < 22; i++) {
+            obstacleElements[i].style.gridColumnStart = obstacleCoordinates[i]['y'];
+            obstacleElements[i].style.gridRowStart = obstacleCoordinates[i]['x'];
+            obstacleElements[i].style.display = "block"
+        }
     }
 }
 
@@ -80,46 +90,40 @@ function moveSnake() {
     changeSnakeDirection(snakeX, snakeY);
 
 }
+
 function checkFutureDirection() {
-    if (direction == "d" && futureDirection != "a"){
+    if (direction == "d" && futureDirection != "a") {
         direction = futureDirection;
-    }
-    else if (direction == "a" && futureDirection != "d") {
+    } else if (direction == "a" && futureDirection != "d") {
         direction = futureDirection;
-    }
-    else if (direction == "w" && futureDirection != "s") {
+    } else if (direction == "w" && futureDirection != "s") {
         direction = futureDirection;
-    }
-    else if (direction == "s" && futureDirection != "w") {
+    } else if (direction == "s" && futureDirection != "w") {
         direction = futureDirection;
     }
 }
-function changeSnakeDirection(x, y){
+
+function changeSnakeDirection(x, y) {
     updateSnakeBodyCoordinates(x, y);
     displaySnakeBodyOnBoard();
     checkFutureDirection();
 
-    if (direction === "d" && checkIfMoveRightIsValid(x,y)) {
+    if (direction === "d" && checkIfMoveRightIsValid(x, y)) {
         snake.style.gridColumnStart = (parseInt(y) + 1);
         document.querySelector("#snake").style.transform = "rotate(0deg)";
-    }
-    else if (direction === "a" && checkIfMoveLeftIsValid(x,y))  {
+    } else if (direction === "a" && checkIfMoveLeftIsValid(x, y)) {
         snake.style.gridColumnStart = (parseInt(y) - 1);
         document.querySelector("#snake").style.transform = "rotate(180deg)";
-    }
-    else if (direction === "w" && checkIfMoveUpIsValid(x,y))  {
+    } else if (direction === "w" && checkIfMoveUpIsValid(x, y)) {
         snake.style.gridRowStart = (parseInt(x) - 1);
         document.querySelector("#snake").style.transform = "rotate(270deg)";
-    }
-    else if (direction === "s" && checkIfMoveDownIsValid(x,y)) {
+    } else if (direction === "s" && checkIfMoveDownIsValid(x, y)) {
         snake.style.gridRowStart = (parseInt(x) + 1);
         document.querySelector("#snake").style.transform = "rotate(90deg)";
-    }
+    } else {
 
-    else {
-
-    clearInterval(intervalId);
-    endgame();
+        clearInterval(intervalId);
+        endgame();
     }
 }
 
@@ -127,60 +131,59 @@ function endgame() {
     gameBoard.style.display = "none";
     gameOver.style.display = "block";
     finallScore.innerHTML = score;
+    levelOutput.innerHTML = level;
     sessionStorage.setItem("input", score.toString())
     console.log(sessionStorage.getItem("input"))
 }
 
-function checkIfMoveRightIsValid(x,y){
+function checkIfMoveRightIsValid(x, y) {
 
     return parseInt(y) !== 20 && !checkIfFieldIsTaken(x, parseInt(y) + 1) && !checkIfObstacle(x, parseInt(y) + 1);
 }
 
 
-function checkIfMoveLeftIsValid(x,y){
+function checkIfMoveLeftIsValid(x, y) {
     return parseInt(y) !== 1 && !checkIfFieldIsTaken(x, parseInt(y) - 1) && !checkIfObstacle(x, parseInt(y) - 1);
 }
 
-function checkIfMoveUpIsValid(x,y){
-    return parseInt(x) !== 1 && !checkIfFieldIsTaken(parseInt(x) - 1,y) && !checkIfObstacle(parseInt(x) - 1,y);
+function checkIfMoveUpIsValid(x, y) {
+    return parseInt(x) !== 1 && !checkIfFieldIsTaken(parseInt(x) - 1, y) && !checkIfObstacle(parseInt(x) - 1, y);
 }
 
-function checkIfMoveDownIsValid(x,y){
+function checkIfMoveDownIsValid(x, y) {
     return parseInt(x) !== 20 && !checkIfFieldIsTaken(parseInt(x) + 1, y) && !checkIfObstacle(parseInt(x) + 1, y);
 }
 
 
-function checkIfFieldIsTaken(x,y){
-    for(let i = 0; i < snakeBodyCoordinates.length; i++){
-        if (snakeBodyCoordinates[i]['x'] == x && snakeBodyCoordinates[i]['y'] == y){
-           return true;
+function checkIfFieldIsTaken(x, y) {
+    for (let i = 0; i < snakeBodyCoordinates.length; i++) {
+        if (snakeBodyCoordinates[i]['x'] == x && snakeBodyCoordinates[i]['y'] == y) {
+            return true;
         }
-        
+
     }
     return false;
 }
 
-function checkIfObstacle(x,y) {
-    if (level == 1) {
-    for(let i = 0; i < 12; i++){
-        if (obstacleCoordinates[i]['x'] == x && obstacleCoordinates[i]['y'] == y){
-           return true;
-        }
-    
-    }
-    return false;
-    
-    }
+function checkIfObstacle(x, y) {
+    if (level == 2) {
+        for (let i = 0; i < 12; i++) {
+            if (obstacleCoordinates[i]['x'] == x && obstacleCoordinates[i]['y'] == y) {
+                return true;
+            }
 
-    else if (level == 2) {
-    for(let i = 0; i < 22; i++){
-        console.log(i)
-        if (obstacleCoordinates[i]['x'] == x && obstacleCoordinates[i]['y'] == y){
-           return true;
         }
-    
-    }
-    return false;  
+        return false;
+
+    } else if (level == 3) {
+        for (let i = 0; i < 22; i++) {
+            console.log(i)
+            if (obstacleCoordinates[i]['x'] == x && obstacleCoordinates[i]['y'] == y) {
+                return true;
+            }
+
+        }
+        return false;
     }
 }
 
@@ -204,23 +207,23 @@ function displayAppleOnBoard(snakeY, snakeX) {
     }
 }
 
-function createNewSnakeBodyElement(){
-        let newElement = document.createElement('div');
-        newElement.style.gridRowStart = snake.style.gridRowStart;
-        newElement.style.gridColumnStart = snake.style.gridColumnStart;
-        newElement.classList.add('snake_body');
-        gameBoard.appendChild(newElement);
-        snakeBodyCoordinates.unshift({x: snakeBodyCoordinates[0]['x'], y: snakeBodyCoordinates[0]['y']});
+function createNewSnakeBodyElement() {
+    let newElement = document.createElement('div');
+    newElement.style.gridRowStart = snake.style.gridRowStart;
+    newElement.style.gridColumnStart = snake.style.gridColumnStart;
+    newElement.classList.add('snake_body');
+    gameBoard.appendChild(newElement);
+    snakeBodyCoordinates.unshift({x: snakeBodyCoordinates[0]['x'], y: snakeBodyCoordinates[0]['y']});
 }
 
-function myScore(){
+function myScore() {
     document.getElementById('myScore').innerHTML = " " + score;
 }
 
 
 let switchToGame = document.getElementById("switchToGame");
 
-switchToGame.onclick = function switchBetweenMenuAndGame(){
+switchToGame.onclick = function switchBetweenMenuAndGame() {
     gameBoard.style.display = "grid";
     displayObstacleElement();
     initGame();
@@ -238,47 +241,43 @@ switchToOptions.onclick = function switchBetweenMenuAndOptions() {
 }
 
 let switchToScoreBoard = document.getElementById("switchToScoreBoard");
- switchToScoreBoard.onclick = function switchBetweenMenuAndScoreBoard() {
+switchToScoreBoard.onclick = function switchBetweenMenuAndScoreBoard() {
     scoreBoard.style.display = "block";
 
     menu.style.display = "none";
-       
- }
 
- let switchCredits = document.getElementById("switchToCredits");
- switchCredits.onclick = function switchBetweenMenuAndCredits() {
+}
+
+let switchCredits = document.getElementById("switchToCredits");
+switchCredits.onclick = function switchBetweenMenuAndCredits() {
     credits.style.display = "block";
 
     menu.style.display = "none";
     gameOver = 0;
-    }
+}
 
 
-    
 let backToMainMenuButtons = document.getElementsByClassName("backButton");
 
-for(let i=0; i < backToMainMenuButtons.length; i++){
-backToMainMenuButtons[i].onclick = function backToMainMenu() {
-    menu.style.display = "block";
+for (let i = 0; i < backToMainMenuButtons.length; i++) {
+    backToMainMenuButtons[i].onclick = function backToMainMenu() {
+        menu.style.display = "block";
 
-    options.style.display = "none";
-    credits.style.display = "none";
-    scoreBoard.style.display = "none";
-    gameOver.style.display = "none";
-}
+        options.style.display = "none";
+        credits.style.display = "none";
+        scoreBoard.style.display = "none";
+    }
 }
 
 let playAgain = document.getElementById('playAgain');
 playAgain.onclick = function playAgain() {
     window.location.reload()
 }
-
+/*SLIDER 1*/
 let slider = document.getElementById("myRange");
 let output = document.getElementById("demo");
 output.innerHTML = slider.value; // Display the default slider value
-
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
+slider.oninput = function () {
     output.innerHTML = this.value;
     if (this.value == 1) {
         speed = 1000
@@ -311,4 +310,20 @@ slider.oninput = function() {
         speed = 50
     }
     scoreMultiplier = this.value
+}
+
+/*SLIDER 2*/
+let sliderLevel = document.getElementById("chosenLevel");
+let levelOutput = document.getElementById("level");
+levelOutput.innerHTML = sliderLevel.value; // Display the default slider value
+sliderLevel.oninput = function () {
+    levelOutput.innerHTML = this.value;
+
+    if (levelOutput.innerHTML == 1) {
+        level = 1;
+    } else if (levelOutput.innerHTML == 2) {
+        level = 2;
+    } else if (levelOutput.innerHTML == 3) {
+        level = 3;
+    }
 }
