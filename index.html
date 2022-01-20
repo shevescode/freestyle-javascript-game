@@ -27,19 +27,19 @@
         </div>
 
         <div id="options" style="display: none">
-        
+        <p>Set snake speed</p>
         <input type="range" min="1" max="10" value="5" class="slider" id="myRange">
-        <p>Value: <span id="demo"></span></p>
+        
+        <p style="text-align: center">Value: <span id="demo"></span></p><br>
             <p>Add player name:</p>
-            <p>Choose how to make snake move</p>
             <div class="btn-group">
             <button class="backButton">BACK TO MENU</button>
             </div>
         </div>
 
         <div id="scoreBoard" style="display: none">
-            <p>PLAYER 1:</p>
-            <p>PLAYER 2:</p>
+            <p style="text-align: center">TOP SCORES:</p>
+            
              <div class="btn-group">
                 <button class="backButton">BACK TO MENU</button>
             </div>
@@ -64,11 +64,39 @@
                 <p id="score" style="color: black">Score:<span id="myScore" > 0</span></p>
             </div>
 
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+
+            
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
+            <div class="obstacle" style="display: none"></div>
         </div>
         <div id="gameOver" style="display: none">
             <p class="game_over">GAME OVER</p>
+            <p>Your score was: <span id="finallScore"></span></p>
             <div class="btn-group">
-                <button class="backButton">Would you like to play again?</button>
+                <button id="playAgain">Would you like to play again?</button>
             </div>
        </div>
         

@@ -135,7 +135,17 @@ h1 {
 
 .game_over {
     padding: 150px;
-    font-size: 100px;
+    font-size: 50px;
     text-align: center;
     letter-spacing: 10px;
+}
+
+#playAgain {
+  position: absolute;
+  bottom: 0;
+}
+
+.obstacle {
+  background-color: #000000;
+  border: 1px solid black;
 }

@@ -1,21 +1,25 @@
 import * as util from './util.js';
 const swallowSound = new Audio("polykSound.mp3");
 
-// let gameOver = 0;
-let speed = 600;
+let speed = 500;
+let scoreMultiplier = 5
 let score = 0;
+let level = 1;
 let snakeBodyCoordinates = [{x: 10, y: 8}, {x: 10, y: 9}]
+let obstacleCoordinates =[{x: 4, y: 4}, {x: 5, y: 4}, {x: 4, y: 5}, {x: 17, y: 17}, {x: 16, y: 17}, {x: 17, y: 16}, {x: 4, y: 17}, {x: 5, y: 17}, {x: 4, y: 16}, {x: 17, y: 4}, {x: 16, y: 4}, {x: 17, y: 5}, {x: 11, y: 4}, {x: 11, y: 5}, {x: 11, y: 7}, {x: 11, y: 8}, {x: 11, y: 10}, {x: 11, y: 11}, {x: 11, y: 13}, {x: 11, y: 14}, {x: 11, y: 16}, {x: 11, y: 17}];
 let direction = "d";
 let futureDirection = "d";
 let intervalId;
-let mainMenu = document.getElementById('menu'); //do wyjebania
+let gameOver = document.getElementById("gameOver");
 let snake = document.getElementById('snake');
 let gameBoard = document.getElementById('game_board');
 let snakeBodyElements = gameBoard.getElementsByClassName('snake_body');
+let obstacleElements = gameBoard.getElementsByClassName('obstacle');
 
 
 function initGame() {
     // Your game can start here, but define separate functions, don't write everything in here :)
+    
     intervalId = setInterval(moveSnake, speed);
     window.addEventListener('keydown', (edge)=>{
         console.log("Wciśnięty klawisz" + edge.key);
@@ -42,6 +46,23 @@ function displaySnakeBodyOnBoard() {
         snakeBodyElements[i].style.gridRowStart = snakeBodyCoordinates[i]['x'];
     }
 
+}
+
+function displayObstacleElement() {
+    if (level == 1) {
+    for (let i = 0; i < 12; i++) {
+        obstacleElements[i].style.gridColumnStart = obstacleCoordinates[i]['y'];
+        obstacleElements[i].style.gridRowStart = obstacleCoordinates[i]['x'];
+        obstacleElements[i].style.display = "block"
+    }
+    }
+    if (level == 2) {
+    for (let i = 0; i < 22; i++) {
+        obstacleElements[i].style.gridColumnStart = obstacleCoordinates[i]['y'];
+        obstacleElements[i].style.gridRowStart = obstacleCoordinates[i]['x'];
+        obstacleElements[i].style.display = "block"
+    }
+    }
 }
 
 function updateSnakeBodyCoordinates(x, y) {
@@ -96,48 +117,71 @@ function changeSnakeDirection(x, y){
     }
 
     else {
-    // gameOver = 1;
-    clearInterval(intervalId)
-    // console.log(gameOver);
-    let gameOver = document.getElementById("gameoOver");
-    gameOver.style.display = "block";
-    gameBoard.style.display = "none";
-    
-    // displayGameOverBoard();
-    
-    // gameOver = 0;
 
+    clearInterval(intervalId);
+    endgame();
     }
 }
 
+function endgame() {
+    gameBoard.style.display = "none";
+    gameOver.style.display = "block";
+    finallScore.innerHTML = score;
+    sessionStorage.setItem("input", score.toString())
+    console.log(sessionStorage.getItem("input"))
+}
 
 function checkIfMoveRightIsValid(x,y){
 
-    return parseInt(y) !== 20 && !checkIfFieldIsTaken(x, parseInt(y) + 1);
+    return parseInt(y) !== 20 && !checkIfFieldIsTaken(x, parseInt(y) + 1) && !checkIfObstacle(x, parseInt(y) + 1);
 }
 
 
 function checkIfMoveLeftIsValid(x,y){
-    return parseInt(y) !== 1 && !checkIfFieldIsTaken(x, parseInt(y) - 1);
+    return parseInt(y) !== 1 && !checkIfFieldIsTaken(x, parseInt(y) - 1) && !checkIfObstacle(x, parseInt(y) - 1);
 }
 
 function checkIfMoveUpIsValid(x,y){
-    return parseInt(x) !== 1 && !checkIfFieldIsTaken(parseInt(x) - 1,y);
+    return parseInt(x) !== 1 && !checkIfFieldIsTaken(parseInt(x) - 1,y) && !checkIfObstacle(parseInt(x) - 1,y);
 }
 
 function checkIfMoveDownIsValid(x,y){
-    return parseInt(x) !== 20 && !checkIfFieldIsTaken(parseInt(x) + 1, y);
+    return parseInt(x) !== 20 && !checkIfFieldIsTaken(parseInt(x) + 1, y) && !checkIfObstacle(parseInt(x) + 1, y);
 }
 
 
 function checkIfFieldIsTaken(x,y){
     for(let i = 0; i < snakeBodyCoordinates.length; i++){
-        if (snakeBodyCoordinates[i]['x'] == x && snakeBodyCoordinates[i]['y'] == y ){
+        if (snakeBodyCoordinates[i]['x'] == x && snakeBodyCoordinates[i]['y'] == y){
            return true;
         }
         
     }
     return false;
+}
+
+function checkIfObstacle(x,y) {
+    if (level == 1) {
+    for(let i = 0; i < 12; i++){
+        if (obstacleCoordinates[i]['x'] == x && obstacleCoordinates[i]['y'] == y){
+           return true;
+        }
+    
+    }
+    return false;
+    
+    }
+
+    else if (level == 2) {
+    for(let i = 0; i < 22; i++){
+        console.log(i)
+        if (obstacleCoordinates[i]['x'] == x && obstacleCoordinates[i]['y'] == y){
+           return true;
+        }
+    
+    }
+    return false;  
+    }
 }
 
 
@@ -148,7 +192,7 @@ function displayAppleOnBoard(snakeY, snakeX) {
 
     if ((snakeY === appleY) && (snakeX === appleX)) {
         swallowSound.play();
-        score += 1;
+        score += 1 * scoreMultiplier;
         myScore();
 
         document.getElementById("")
@@ -178,6 +222,7 @@ let switchToGame = document.getElementById("switchToGame");
 
 switchToGame.onclick = function switchBetweenMenuAndGame(){
     gameBoard.style.display = "grid";
+    displayObstacleElement();
     initGame();
 
     menu.style.display = "none";
@@ -223,13 +268,10 @@ backToMainMenuButtons[i].onclick = function backToMainMenu() {
 }
 }
 
-// function displayGameOverBoard(){
-//     let gameOver = document.getElementById("gameover");
-//     gameOver.style.display = "block";
-
-//     gameBoard.style.display = "none";
-// }
-
+let playAgain = document.getElementById('playAgain');
+playAgain.onclick = function playAgain() {
+    window.location.reload()
+}
 
 let slider = document.getElementById("myRange");
 let output = document.getElementById("demo");
@@ -238,4 +280,35 @@ output.innerHTML = slider.value; // Display the default slider value
 // Update the current slider value (each time you drag the slider handle)
 slider.oninput = function() {
     output.innerHTML = this.value;
+    if (this.value == 1) {
+        speed = 1000
+    }
+    if (this.value == 2) {
+        speed = 900
+    }
+    if (this.value == 3) {
+        speed = 800
+    }
+    if (this.value == 4) {
+        speed = 700
+    }
+    if (this.value == 5) {
+        speed = 600
+    }
+    if (this.value == 6) {
+        speed = 500
+    }
+    if (this.value == 7) {
+        speed = 400
+    }
+    if (this.value == 8) {
+        speed = 300
+    }
+    if (this.value == 9) {
+        speed = 100
+    }
+    if (this.value == 10) {
+        speed = 50
+    }
+    scoreMultiplier = this.value
 }
