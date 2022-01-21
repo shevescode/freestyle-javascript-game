@@ -184,4 +184,5 @@ li  {
 
 #logo:hover {
     color: #e4d1ae;
+    cursor: pointer;
 }

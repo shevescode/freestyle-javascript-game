@@ -9,14 +9,11 @@ let score = 0;
 let level = 1;
 let snakeBodyCoordinates = [{x: 10, y: 8}, {x: 10, y: 9}]
 let obstacleCoordinates = [{x: 4, y: 4}, {x: 5, y: 4}, {x: 4, y: 5}, {x: 17, y: 17}, {x: 16, y: 17}, {
-    x: 17,
-    y: 16
+    x: 17, y: 16
 }, {x: 4, y: 17}, {x: 5, y: 17}, {x: 4, y: 16}, {x: 17, y: 4}, {x: 16, y: 4}, {x: 17, y: 5}, {x: 11, y: 4}, {
-    x: 11,
-    y: 5
+    x: 11, y: 5
 }, {x: 11, y: 7}, {x: 11, y: 8}, {x: 11, y: 10}, {x: 11, y: 11}, {x: 11, y: 13}, {x: 11, y: 14}, {x: 11, y: 16}, {
-    x: 11,
-    y: 17
+    x: 11, y: 17
 }];
 let direction = "d";
 let futureDirection = "d";
@@ -198,13 +195,44 @@ function displayAppleOnBoard(snakeY, snakeX) {
         swallowSound.play();
         score += 1 * scoreMultiplier * levelMultiplier;
         myScore();
+              
+        let x, y = isAppleCoordinatesValid()
+            apple.style.gridColumnStart = y;
+            apple.style.gridRowStart = x;
+            createNewSnakeBodyElement();
+        };
 
-        document.getElementById("")
-        apple.style.gridColumnStart = (util.getRandomInt(1, 20));
-        apple.style.gridRowStart = (util.getRandomInt(1, 20));
+}
 
-        createNewSnakeBodyElement();
+function returnAppleValidCoordinatesV() {
+    let count = 1;
+    while (count == 1){
+    let x = util.getRandomInt(1, 20);
+    let y = util.getRandomInt(1, 20);
+    for (let i = 0; i < snakeBodyElements.length; i++) {
+        if (snakeBodyElements[i].style.gridColumnStart == y && snakeBodyElements[i].style.gridRowStart == x) {
+            return false
+        }
+    }
+    if (level == 2) {
+        for (let i = 0; i < 12; i++) {
+            if (obstacleElements[i].style.gridColumnStart == y && obstacleElements[i].style.gridRowStart == x) {
+                return false
+            }
 
+        }
+    }
+    if (level == 3) {
+        for (let i = 0; i < 22; i++) {
+            if (obstacleElements[i].style.gridColumnStart == y && obstacleElements[i].style.gridRowStart == x) {
+                return false
+            }
+        }
+        if (snake.style.gridColumnStart == y && snake.gridRowStart == x) {
+            return false
+        }
+        return x, y
+    }
     }
 }
 
@@ -333,5 +361,5 @@ sliderLevel.oninput = function () {
     } else if (levelOutput.innerHTML == 3) {
         level = 3;
     }
-    levelMultiplier = this.value
+    levelMultiplier = this.value;
 }
