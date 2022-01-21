@@ -2,8 +2,9 @@ import * as util from './util.js';
 
 const swallowSound = new Audio("polykSound.mp3");
 
-let speed = 500;
-let scoreMultiplier = 5
+let speed = 400;
+let scoreMultiplier = 7
+let levelMultiplier = 1
 let score = 0;
 let level = 1;
 let snakeBodyCoordinates = [{x: 10, y: 8}, {x: 10, y: 9}]
@@ -32,7 +33,7 @@ function initGame() {
 
     intervalId = setInterval(moveSnake, speed);
     window.addEventListener('keydown', (edge) => {
-        console.log("Wciśnięty klawisz" + edge.key);
+        console.log(speed);
         if (edge.key === "d") {
             futureDirection = "d"
         }
@@ -195,7 +196,7 @@ function displayAppleOnBoard(snakeY, snakeX) {
 
     if ((snakeY === appleY) && (snakeX === appleX)) {
         swallowSound.play();
-        score += 1 * scoreMultiplier;
+        score += 1 * scoreMultiplier * levelMultiplier;
         myScore();
 
         document.getElementById("")
@@ -273,6 +274,12 @@ let playAgain = document.getElementById('playAgain');
 playAgain.onclick = function playAgain() {
     window.location.reload()
 }
+
+let logo = document.getElementsByClassName('header');
+logo[0].onclick = function logo() {
+    window.location.reload()
+}
+
 /*SLIDER 1*/
 let slider = document.getElementById("myRange");
 let output = document.getElementById("demo");
@@ -326,4 +333,5 @@ sliderLevel.oninput = function () {
     } else if (levelOutput.innerHTML == 3) {
         level = 3;
     }
+    levelMultiplier = this.value
 }
