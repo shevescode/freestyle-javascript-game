@@ -207,34 +207,41 @@ function displayAppleOnBoard(snakeY, snakeX) {
 function isAppleCoordinatesValid() {
     let count = 1;
     while (count == 1){
-    let t = util.getRandomInt(1, 20);
-    let u = util.getRandomInt(1, 20);
+    let x = util.getRandomInt(1, 20);
+    let y = util.getRandomInt(1, 20);
+    if (checkPossitionForApple(x, y)) {
+        return [x, y];
+    }
+    
+    }
+}
+
+function checkPossitionForApple(x, y) {
     for (let i = 0; i < snakeBodyElements.length; i++) {
-        if (snakeBodyElements[i].style.gridColumnStart == u && snakeBodyElements[i].style.gridRowStart == t) {
-            continue;
+        if (snakeBodyElements[i].style.gridColumnStart == y && snakeBodyElements[i].style.gridRowStart == x) {
+            return false;
         }
     }
     if (level == 2) {
         for (let i = 0; i < 12; i++) {
-            if (obstacleElements[i].style.gridColumnStart == u && obstacleElements[i].style.gridRowStart == t) {
-                continue;
+            if (obstacleElements[i].style.gridColumnStart == y && obstacleElements[i].style.gridRowStart == x) {
+                return false;
             }
 
         }
     }
     if (level == 3) {
         for (let i = 0; i < 22; i++) {
-            if (obstacleElements[i].style.gridColumnStart == u && obstacleElements[i].style.gridRowStart == t) {
-               continue;
+            if (obstacleElements[i].style.gridColumnStart == y && obstacleElements[i].style.gridRowStart == x) {
+               return false;
             }
         }
-        if (snake.style.gridColumnStart == u && snake.gridRowStart == t) {
-            continue;
+        if (snake.style.gridColumnStart == y && snake.gridRowStart == x) {
+            false;
         }
 
     }
-    return [t, u];
-    }
+    return true;
 }
 
 function createNewSnakeBodyElement() {
