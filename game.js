@@ -30,17 +30,17 @@ function initGame() {
 
     intervalId = setInterval(moveSnake, speed);
     window.addEventListener('keydown', (edge) => {
-        console.log(speed);
-        if (edge.key === "d") {
+        console.log(edge.key);
+        if (edge.key === "d" || edge.key === "ArrowRight") {
             futureDirection = "d"
         }
-        if (edge.key === "a") {
+        if (edge.key === "a" || edge.key === "ArrowLeft") {
             futureDirection = "a"
         }
-        if (edge.key === "w") {
+        if (edge.key === "w" || edge.key === "ArrowUp") {
             futureDirection = "w"
         }
-        if (edge.key === "s") {
+        if (edge.key === "s" || edge.key === "ArrowDown") {
             futureDirection = "s"
         }
 
@@ -237,7 +237,7 @@ function checkPossitionForApple(x, y) {
             }
         }
         if (snake.style.gridColumnStart == y && snake.gridRowStart == x) {
-            false;
+            return false;
         }
 
     }
